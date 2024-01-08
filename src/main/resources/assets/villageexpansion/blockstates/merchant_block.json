@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "villageexpansion:block/merchant_block"
+    }
+  }
+}
