@@ -8,4 +8,7 @@ public class ModModelLayers {
 
     public static final EntityModelLayer GENERIC_VILLAGER =
             new EntityModelLayer(new Identifier(VillageExpansion.MOD_ID, "genericvillager"), "main");
+
+    public static final EntityModelLayer NOBLE_GOLEM =
+            new EntityModelLayer(new Identifier(VillageExpansion.MOD_ID, "noblegolem"), "main");
 }
