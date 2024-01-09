@@ -3,6 +3,8 @@
   "entity.minecraft.vllager.guard": "Guard",
   "entity.minecraft.villager.merchant": "Merchant",
 
+  "entity.villageexpansion.genericvillager": "Villager",
+
   "itemGroup.villageexpansion.workstation_group": "Expansion Workstations",
 
   "block.villageexpansion.hunter_block": "Hunter Workstation",

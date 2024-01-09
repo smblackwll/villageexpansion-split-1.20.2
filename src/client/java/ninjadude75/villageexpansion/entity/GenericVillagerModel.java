@@ -57,6 +57,7 @@ public class GenericVillagerModel<T extends GenericVillagerEntity> extends Singl
 //		else{
 		this.animateMovement(ModAnimations.GEN_VILLAGER_WALK, limbSwing, limbSwingAmount, 1f, 1f);
 		this.updateAnimation(entity.idleAnimationState, ModAnimations.GEN_VILLAGER_IDLE, ageInTicks, 1f);
+		this.updateAnimation(entity.attackAnimationState, ModAnimations.GEN_VILLAGER_MELEE, ageInTicks, 1f);
 
 	//}
 
