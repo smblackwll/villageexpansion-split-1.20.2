@@ -25,12 +25,12 @@ public class GenericVillagerModel<T extends GenericVillagerEntity> extends Singl
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
 		ModelPartData modelPartData = modelData.getRoot();
-		ModelPartData genericvillager = modelPartData.addChild("genericvillager", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 24.0F, 0.0F));
+		ModelPartData genericvillager = modelPartData.addChild("genericvillager", ModelPartBuilder.create(), ModelTransform.of(0.0F, 24.0F, 0.0F, 0.0F, 3.1416F, 0.0F));
 
 		ModelPartData torso = genericvillager.addChild("torso", ModelPartBuilder.create(), ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
 		ModelPartData head = torso.addChild("head", ModelPartBuilder.create().uv(0, 0).cuboid(-4.0F, -9.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.0F))
-		.uv(0, 0).cuboid(-1.0F, -4.0F, 4.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -23.0F, 0.0F));
+				.uv(0, 0).cuboid(-1.0F, -4.0F, 4.0F, 2.0F, 4.0F, 2.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -23.0F, 0.0F));
 
 		ModelPartData body = torso.addChild("body", ModelPartBuilder.create().uv(0, 16).cuboid(-4.0F, -6.0F, -2.0F, 8.0F, 12.0F, 4.0F, new Dilation(0.0F)), ModelTransform.pivot(0.0F, -18.0F, 0.0F));
 
@@ -50,8 +50,15 @@ public class GenericVillagerModel<T extends GenericVillagerEntity> extends Singl
 		//rotate head when looking around
 		this.setHeadAngles(netHeadYaw, headPitch);
 
-		this.animateMovement(ModAnimations.WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
-		this.updateAnimation(entity.idleAnimationState, ModAnimations.IDLE, ageInTicks, 1f);
+		//supposed to be the movement
+		//walking anim currently doesn't work
+		if (limbSwingAmount > 0.1f){
+			this.animateMovement(ModAnimations.GEN_VILLAGER_WALK, limbSwing, limbSwingAmount, 1f, 1f);
+		}
+		else {
+			this.updateAnimation(entity.idleAnimationState, ModAnimations.GEN_VILLAGER_IDLE, ageInTicks, 1f);
+		}
+
 	}
 
 	private void setHeadAngles(float headYaw, float headPitch){

@@ -1,13 +1,13 @@
 package ninjadude75.villageexpansion.entity.animation;
 
-
 import net.minecraft.client.render.entity.animation.Animation;
 import net.minecraft.client.render.entity.animation.AnimationHelper;
 import net.minecraft.client.render.entity.animation.Keyframe;
 import net.minecraft.client.render.entity.animation.Transformation;
 
 public class ModAnimations {
-    public static final Animation WALK = Animation.Builder.create(1f)
+
+    public static final Animation GEN_VILLAGER_WALK = Animation.Builder.create(1f).looping()
             .addBoneAnimation("head",
                     new Transformation(Transformation.Targets.TRANSLATE,
                             new Keyframe(0f, AnimationHelper.createTranslationalVector(0f, 0f, 0f),
@@ -60,7 +60,7 @@ public class ModAnimations {
                                     Transformation.Interpolations.LINEAR),
                             new Keyframe(1f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation MELEE_ATTACK = Animation.Builder.create(0.4583433f)
+    public static final Animation GEN_VILLAGER_MELEE = Animation.Builder.create(0.4583433f).looping()
             .addBoneAnimation("right_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
@@ -71,7 +71,7 @@ public class ModAnimations {
                                     Transformation.Interpolations.CUBIC),
                             new Keyframe(0.4167667f, AnimationHelper.createRotationalVector(0f, 0f, 0f),
                                     Transformation.Interpolations.LINEAR))).build();
-    public static final Animation IDLE = Animation.Builder.create(2.5f)
+    public static final Animation GEN_VILLAGER_IDLE = Animation.Builder.create(2.5f).looping()
             .addBoneAnimation("left_arm",
                     new Transformation(Transformation.Targets.ROTATE,
                             new Keyframe(0f, AnimationHelper.createRotationalVector(0f, 0f, 0f),

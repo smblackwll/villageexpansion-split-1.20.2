@@ -8,21 +8,18 @@ import net.minecraft.entity.ai.goal.LookAtEntityGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WanderAroundGoal;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.mob.PathAwareEntity;
-import net.minecraft.entity.passive.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
-import ninjadude75.villageexpansion.entity.ModEntities;
 import org.jetbrains.annotations.Nullable;
 
 public class GenericVillagerEntity extends PathAwareEntity {
 
-    private int idleAnimTimeout = 0;
+    private int idleAnimationTimeout = 0;
 
 
     public final AnimationState idleAnimationState = new AnimationState();
@@ -32,20 +29,19 @@ public class GenericVillagerEntity extends PathAwareEntity {
 
     }
 
-    private void updateAnimations(){
-        if (this.idleAnimTimeout <= 0){
-            this.idleAnimTimeout = this.random.nextInt(40) + 80;
+    private void setupAnimationStates() {
+        if (this.idleAnimationTimeout <= 0) {
+            this.idleAnimationTimeout = this.random.nextInt(40) + 80;
             this.idleAnimationState.start(this.age);
-        }
-        else {
-            --this.idleAnimTimeout;
+        } else {
+            --this.idleAnimationTimeout;
         }
     }
 
 
     @Override
     protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta + 6.0f, 1.0f): 0.0f;
+        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta + 1.0f, 1.0f): 0.0f;
         this.limbAnimator.updateLimbs(f, 0.2f);
     }
 
@@ -53,7 +49,7 @@ public class GenericVillagerEntity extends PathAwareEntity {
     public void tick(){
         super.tick();
         if(this.getWorld().isClient()){
-            updateAnimations();
+            setupAnimationStates();
         }
 
     }
