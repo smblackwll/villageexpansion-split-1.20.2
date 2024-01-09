@@ -19,6 +19,7 @@ import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import ninjadude75.villageexpansion.entity.GenericVillager;
+import ninjadude75.villageexpansion.entity.ModEntities;
 import ninjadude75.villageexpansion.util.ModCustomTrades;
 import ninjadude75.villageexpansion.villager.ModVillagers;
 import org.slf4j.Logger;
@@ -50,6 +51,7 @@ public class VillageExpansion implements ModInitializer {
 				entries.add(VillageExpansion.HUNTER_BLOCK);
 			})
 			.build();
+
 
 	//adding the entities (mostly the generic villager)
 //	public static final EntityType<GenericVillager> GENERIC_VILLAGER = Registry.register(
@@ -87,6 +89,9 @@ public class VillageExpansion implements ModInitializer {
 		//Register Entities
 
 //		FabricDefaultAttributeRegistry.register(GENERIC_VILLAGER, GenericVillager.createMobAttributes());
+
+		//Registering entities
+		ModEntities.registerModEntities();
 
 
 
