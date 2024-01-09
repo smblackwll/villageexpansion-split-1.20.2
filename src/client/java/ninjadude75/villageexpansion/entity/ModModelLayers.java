@@ -7,5 +7,5 @@ import ninjadude75.villageexpansion.VillageExpansion;
 public class ModModelLayers {
 
     public static final EntityModelLayer GENERIC_VILLAGER =
-            new EntityModelLayer(new Identifier(VillageExpansion.MOD_ID, "generic_villager"), "main");
+            new EntityModelLayer(new Identifier(VillageExpansion.MOD_ID, "genericvillager"), "main");
 }

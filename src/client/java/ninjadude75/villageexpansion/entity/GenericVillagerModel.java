@@ -15,7 +15,6 @@ import ninjadude75.villageexpansion.entity.custom.GenericVillagerEntity;
 // Paste this class into your mod and generate all required imports
 public class GenericVillagerModel<T extends GenericVillagerEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart genericvillager;
-
 	private final ModelPart head;
 
 	public GenericVillagerModel(ModelPart root) {
@@ -46,18 +45,20 @@ public class GenericVillagerModel<T extends GenericVillagerEntity> extends Singl
 	@Override
 	public void setAngles(GenericVillagerEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
-
 		//rotate head when looking around
 		this.setHeadAngles(netHeadYaw, headPitch);
 
 		//supposed to be the movement
-		//walking anim currently doesn't work
-		if (limbSwingAmount > 0.1f){
-			this.animateMovement(ModAnimations.GEN_VILLAGER_WALK, limbSwing, limbSwingAmount, 1f, 1f);
-		}
-		else {
-			this.updateAnimation(entity.idleAnimationState, ModAnimations.GEN_VILLAGER_IDLE, ageInTicks, 1f);
-		}
+		//walking anim is now the only thing that works
+
+//		if (limbSwingAmount > 1.0000000000001f){
+//
+//		}
+//		else{
+		this.animateMovement(ModAnimations.GEN_VILLAGER_WALK, limbSwing, limbSwingAmount, 1f, 1f);
+		this.updateAnimation(entity.idleAnimationState, ModAnimations.GEN_VILLAGER_IDLE, ageInTicks, 1f);
+
+	//}
 
 	}
 

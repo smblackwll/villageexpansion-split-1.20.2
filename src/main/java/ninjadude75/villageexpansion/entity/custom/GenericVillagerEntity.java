@@ -3,10 +3,7 @@ package ninjadude75.villageexpansion.entity.custom;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.LookAroundGoal;
-import net.minecraft.entity.ai.goal.LookAtEntityGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
-import net.minecraft.entity.ai.goal.WanderAroundGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.damage.DamageSource;
@@ -19,10 +16,11 @@ import org.jetbrains.annotations.Nullable;
 
 public class GenericVillagerEntity extends PathAwareEntity {
 
+    public final AnimationState idleAnimationState = new AnimationState();
+
     private int idleAnimationTimeout = 0;
 
 
-    public final AnimationState idleAnimationState = new AnimationState();
 
     public GenericVillagerEntity(EntityType<? extends PathAwareEntity> entityType, World world) {
         super(entityType, world);
@@ -38,20 +36,18 @@ public class GenericVillagerEntity extends PathAwareEntity {
         }
     }
 
-
     @Override
     protected void updateLimbs(float posDelta) {
-        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta + 1.0f, 1.0f): 0.0f;
+        float f = this.getPose() == EntityPose.STANDING ? Math.min(posDelta * 6.0f, 1.0f) : 0.0f;
         this.limbAnimator.updateLimbs(f, 0.2f);
     }
 
     @Override
-    public void tick(){
+    public void tick() {
         super.tick();
-        if(this.getWorld().isClient()){
+        if(this.getWorld().isClient()) {
             setupAnimationStates();
         }
-
     }
 
     @Override
@@ -60,22 +56,24 @@ public class GenericVillagerEntity extends PathAwareEntity {
         this.goalSelector.add(0, new SwimGoal(this));
 
         //wanders around
-        this.goalSelector.add(1, new WanderAroundGoal(this, 1D));
+
 
         //Looks at other players
-        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
+        this.goalSelector.add(1, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
 
         //Looks at other villagers
-        this.goalSelector.add(3, new LookAtEntityGoal(this, GenericVillagerEntity.class, 4f));
+        this.goalSelector.add(2, new LookAtEntityGoal(this, GenericVillagerEntity.class, 4f));
 
         //Looks around in general
-        this.goalSelector.add(4, new LookAroundGoal(this));
+        this.goalSelector.add(3, new LookAroundGoal(this));
+
+        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
     }
 
     public static DefaultAttributeContainer.Builder createGenericVillagerAttributes(){
         return PathAwareEntity.createMobAttributes()
                 .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
-                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.15)
+                .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2)
                 .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1);
     }
 

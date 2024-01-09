@@ -14,7 +14,7 @@ import ninjadude75.villageexpansion.entity.custom.GenericVillagerEntity;
 public class ModEntities {
 
     public static final EntityType<GenericVillagerEntity> GENERIC_VILLAGER = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(VillageExpansion.MOD_ID, "genericvillager"), FabricEntityTypeBuilder.create(SpawnGroup.MISC, GenericVillagerEntity::new)
+            new Identifier(VillageExpansion.MOD_ID, "genericvillager"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, GenericVillagerEntity::new)
                     .dimensions(EntityDimensions.fixed(1f, 2f)).build());
 
 
