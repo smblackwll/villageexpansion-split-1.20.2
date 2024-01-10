@@ -48,6 +48,8 @@ public class NobleGolemModel<T extends NobleGolemEntity> extends SinglePartEntit
 
 		this.animateMovement(ModAnimations.NOBLE_GOLEM_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
 		this.updateAnimation(entity.idleAnimationState, ModAnimations.NOBLE_GOLEM_IDLE, ageInTicks, 1f);
+		this.updateAnimation(entity.attackAnimationState, ModAnimations.NOBLE_GOLEM_ATTACK, ageInTicks, 1f);
+
 	}
 
 
