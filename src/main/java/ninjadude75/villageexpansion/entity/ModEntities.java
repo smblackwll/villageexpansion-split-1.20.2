@@ -11,6 +11,7 @@ import net.minecraft.util.Identifier;
 import ninjadude75.villageexpansion.VillageExpansion;
 import ninjadude75.villageexpansion.entity.custom.GenericVillagerEntity;
 import ninjadude75.villageexpansion.entity.custom.NobleGolemEntity;
+import ninjadude75.villageexpansion.entity.custom.NobleGuardEntity;
 
 public class ModEntities {
 
@@ -19,14 +20,21 @@ public class ModEntities {
                     .dimensions(EntityDimensions.fixed(1f, 2f)).build());
 
     public static final EntityType<NobleGolemEntity>NOBLE_GOLEM = Registry.register(Registries.ENTITY_TYPE,
-            new Identifier(VillageExpansion.MOD_ID, "noble_golem"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, NobleGolemEntity::new)
-                    .dimensions(EntityDimensions.fixed(1.5f, 3f)).build());
+            new Identifier(VillageExpansion.MOD_ID, "noblegolem"), FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, NobleGolemEntity::new)
+                    .dimensions(EntityDimensions.fixed(1f, 3f)).build());
+
+    public static final EntityType<NobleGuardEntity>NOBLE_GUARD = Registry.register(Registries.ENTITY_TYPE,
+            new Identifier(VillageExpansion.MOD_ID, "nobleguard"),FabricEntityTypeBuilder.create(SpawnGroup.CREATURE, NobleGuardEntity::new)
+                    .dimensions(EntityDimensions.fixed(1f, 2f)).build());
 
     public static void registerModEntities(){
         VillageExpansion.LOGGER.info("Registering entities for " + VillageExpansion.MOD_ID);
         FabricDefaultAttributeRegistry.register(ModEntities.GENERIC_VILLAGER, GenericVillagerEntity.createGenericVillagerAttributes());
         //need the generic attributes
         FabricDefaultAttributeRegistry.register(ModEntities.NOBLE_GOLEM, NobleGolemEntity.createGolemAttributes());
+
+        FabricDefaultAttributeRegistry.register(ModEntities.NOBLE_GUARD, NobleGuardEntity.createNobleGuardAttributes());
+
 
     }
 }
