@@ -3,6 +3,7 @@ package ninjadude75.villageexpansion.entity.custom;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.world.World;
+import ninjadude75.villageexpansion.entity.ai.NobleGuardAttackGoal;
 import org.jetbrains.annotations.Nullable;
 
 public class NobleGuardEntity extends PathAwareEntity{
@@ -79,27 +81,28 @@ public class NobleGuardEntity extends PathAwareEntity{
         //this will be changed to a goal to attack the player when they see them
 //        this.goalSelector.add(1, new GenericVillagerAttackGoal(this, 1D, true));
 
+        this.goalSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
+//        this.goalSelector.add(2, new MeleeAttackGoal(this, 1.0, true));
+        this.goalSelector.add(1, new NobleGuardAttackGoal(this, 1.5, true));
+
 
         //Looks at other players
-        this.goalSelector.add(2, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
-
-        //Looks at other villagers
-        this.goalSelector.add(3, new LookAtEntityGoal(this, GenericVillagerEntity.class, 4f));
+        this.goalSelector.add(3, new LookAtEntityGoal(this, PlayerEntity.class, 4f));
 
         //Looks around in general
         this.goalSelector.add(4, new LookAroundGoal(this));
 
-        this.goalSelector.add(4, new WanderAroundFarGoal(this, 1D));
+        this.goalSelector.add(5, new WanderAroundFarGoal(this, 1D));
 
-        this.targetSelector.add(1, new RevengeGoal(this));
+
 
     }
 
     public static DefaultAttributeContainer.Builder createNobleGuardAttributes(){
         return PathAwareEntity.createMobAttributes()
-                .add(EntityAttributes.GENERIC_MAX_HEALTH, 20)
+                .add(EntityAttributes.GENERIC_MAX_HEALTH, 16)
                 .add(EntityAttributes.GENERIC_MOVEMENT_SPEED, 0.2)
-                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 1);
+                .add(EntityAttributes.GENERIC_ATTACK_DAMAGE, 3);
     }
 
     public void setAttacking(boolean attacking){
@@ -116,6 +119,9 @@ public class NobleGuardEntity extends PathAwareEntity{
         super.initDataTracker();
         this.dataTracker.startTracking(ATTACKING, false);
     }
+
+
+
 
     @Nullable
     @Override

@@ -3,6 +3,7 @@ package ninjadude75.villageexpansion.entity.custom;
 import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.RevengeGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WanderAroundFarGoal;
@@ -77,8 +78,9 @@ public class NobleGolemEntity extends PathAwareEntity {
         //To be fixed in the morning
 //        this.goalSelector.add(1, new NobleGolemDefendGoal(this,1D, true));
         this.goalSelector.add(1, new RevengeGoal(this));
+        this.goalSelector.add(2, new MeleeAttackGoal(this, 0.5, true));
 
-        this.goalSelector.add(2, new WanderAroundFarGoal(this, 1D));
+        this.goalSelector.add(3, new WanderAroundFarGoal(this, 1D));
 
 
     }

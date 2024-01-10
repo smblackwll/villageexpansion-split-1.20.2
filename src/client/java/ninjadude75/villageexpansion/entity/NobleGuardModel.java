@@ -4,6 +4,8 @@ import net.minecraft.client.model.*;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.math.MathHelper;
+import ninjadude75.villageexpansion.entity.animation.ModAnimations;
 import ninjadude75.villageexpansion.entity.custom.NobleGuardEntity;
 
 // Made with Blockbench 4.9.3
@@ -11,8 +13,10 @@ import ninjadude75.villageexpansion.entity.custom.NobleGuardEntity;
 // Paste this class into your mod and generate all required imports
 public class NobleGuardModel<T extends NobleGuardEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart genericvillager;
+	private final ModelPart head;
 	public NobleGuardModel(ModelPart root) {
 		this.genericvillager = root.getChild("genericvillager");
+		this.head = genericvillager.getChild("torso").getChild("head");
 	}
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
@@ -49,8 +53,26 @@ public class NobleGuardModel<T extends NobleGuardEntity> extends SinglePartEntit
 	}
 	@Override
 	public void setAngles(NobleGuardEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.getPart().traverse().forEach(ModelPart::resetTransform);
+		this.setHeadAngles(netHeadYaw, headPitch);
+
+		this.animateMovement(ModAnimations.NOBLE_GUARD_RUN, limbSwing, limbSwingAmount, 1f, 1f);
+		this.updateAnimation(entity.idleAnimationState, ModAnimations.NOBLE_GUARD_IDLE, ageInTicks, 1f);
+		this.updateAnimation(entity.attackAnimationState, ModAnimations.NOBLE_GUARD_MELEE, ageInTicks, 1f);
+
 
 	}
+
+	private void setHeadAngles(float headYaw, float headPitch){
+		headYaw = MathHelper.clamp(headYaw, -30.F, 30.0F);
+		headPitch = MathHelper.clamp(headPitch, -25.0F, 45.0F);
+
+		this.head.yaw = headYaw * 0.017453292F;
+		this.head.pitch = headPitch * 0.017453292F;
+
+
+	}
+
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		genericvillager.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
