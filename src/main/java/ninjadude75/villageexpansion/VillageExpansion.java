@@ -4,11 +4,10 @@ import net.fabricmc.api.ModInitializer;
 
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.text.Text;
@@ -35,6 +34,9 @@ public class VillageExpansion implements ModInitializer {
 	public static final Block GUARD_POST = new Block(FabricBlockSettings.create().strength(5.0f));
 
 	public static final Block MERCHANT_BLOCK = new Block(FabricBlockSettings.create().strength(4.0f));
+
+	//items
+	public static final Item NOBLE_GUARD_SPAWN_EGG = new SpawnEggItem(ModEntities.NOBLE_GUARD, 0x424242, 0xb71c1c, new FabricItemSettings());
 
 	private static final ItemGroup WORKSTATION_GROUP = FabricItemGroup.builder()
 			.icon(() -> new ItemStack(VillageExpansion.MERCHANT_BLOCK))
@@ -75,10 +77,16 @@ public class VillageExpansion implements ModInitializer {
 		Registry.register(Registries.ITEM, new Identifier("villageexpansion","guard_post"), new BlockItem(GUARD_POST, new FabricItemSettings()));
 		Registry.register(Registries.ITEM, new Identifier("villageexpansion","merchant_block"), new BlockItem(MERCHANT_BLOCK, new FabricItemSettings()));
 
+		Registry.register(Registries.ITEM, new Identifier("villageexpansion", "noble_guard_spawn_egg"), NOBLE_GUARD_SPAWN_EGG);
+
 
 		//Registering item groups (creative mode tabs)
 
 		Registry.register(Registries.ITEM_GROUP, new Identifier(VillageExpansion.MOD_ID, "workstation_group"), WORKSTATION_GROUP);
+
+		ItemGroupEvents.modifyEntriesEvent(ItemGroups.SPAWN_EGGS).register(content -> {
+			content.add(NOBLE_GUARD_SPAWN_EGG);
+		});
 
 		//Register Entities
 

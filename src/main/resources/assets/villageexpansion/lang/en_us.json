@@ -6,6 +6,8 @@
   "entity.villageexpansion.genericvillager": "Villager",
   "entity.villageexpansion.nobleguard": "Corrupted Guard",
 
+  "item.villageexpansion.noble_guard_spawn_egg": "Corrupted Guard Spawn Egg",
+
   "itemGroup.villageexpansion.workstation_group": "Expansion Workstations",
 
   "block.villageexpansion.hunter_block": "Hunter Workstation",
