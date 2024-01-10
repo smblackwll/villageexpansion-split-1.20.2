@@ -1,9 +1,6 @@
 package ninjadude75.villageexpansion.entity.custom;
 
-import net.minecraft.entity.AnimationState;
-import net.minecraft.entity.EntityPose;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -120,8 +117,14 @@ public class NobleGuardEntity extends PathAwareEntity{
         this.dataTracker.startTracking(ATTACKING, false);
     }
 
+    @Override
+    public void onDeath(DamageSource damageSource) {
+        super.onDeath(damageSource);
 
-
+        if (!this.getWorld().isClient){
+            this.getWorld().spawnEntity(new ExperienceOrbEntity(this.getWorld(), this.getX(), this.getY(), this.getZ(), 2));
+        }
+    }
 
     @Nullable
     @Override
@@ -140,4 +143,6 @@ public class NobleGuardEntity extends PathAwareEntity{
     protected SoundEvent getDeathSound() {
         return SoundEvents.ENTITY_VILLAGER_DEATH;
     }
+
+
 }
