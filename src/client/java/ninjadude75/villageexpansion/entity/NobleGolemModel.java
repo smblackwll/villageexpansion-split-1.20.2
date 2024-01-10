@@ -42,7 +42,23 @@ public class NobleGolemModel<T extends NobleGolemEntity> extends SinglePartEntit
 	@Override
 	public void setAngles(NobleGolemEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.getPart().traverse().forEach(ModelPart::resetTransform);
+
+		//not causing the no damage issue
+		this.setHeadangles(netHeadYaw, headPitch);
+
+		this.animateMovement(ModAnimations.NOBLE_GOLEM_WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+		this.updateAnimation(entity.idleAnimationState, ModAnimations.NOBLE_GOLEM_IDLE, ageInTicks, 1f);
 	}
+
+
+	private void setHeadangles(float headYaw, float headPitch){
+		headYaw = MathHelper.clamp(headYaw, -30.0F, 30.0F);
+		headPitch = MathHelper.clamp(headPitch, -25.0F, 45.0F);
+
+		this.head.yaw = headYaw * 0.017453292F;
+		this.head.pitch = headPitch * 0.017453292F;
+	}
+
 	@Override
 	public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {
 		noblegolem.render(matrices, vertexConsumer, light, overlay, red, green, blue, alpha);
