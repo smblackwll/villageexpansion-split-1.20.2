@@ -35,7 +35,7 @@ public class NobleBossSummonVexGoal extends Goal {
     @Override
     public void tick() {
         System.out.println(wait);
-        if (wait <= 0){
+        if (wait <= 0 && checkRange()){
             for (int i = 0; i < 2; i++){
                 VexEntity vex = EntityType.VEX.create(entity.getWorld());
                 if (vex != null){
@@ -56,5 +56,21 @@ public class NobleBossSummonVexGoal extends Goal {
             wait--;
         }
     }
+
+
+    private boolean checkRange(){
+        boolean range = false;
+        for (PlayerEntity player : entity.getWorld().getPlayers()){
+            double distance = entity.squaredDistanceTo(player);
+            if (distance <= 20 * 20) {
+                range = true;
+            }
+            else {
+                range = false;
+            }
+        }
+        return range;
+    }
+
 
 }
