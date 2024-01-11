@@ -22,7 +22,7 @@ public class NobleBossSummonVexGoal extends Goal {
         entity.setSummoning(true);
         for (PlayerEntity player : entity.getWorld().getPlayers()){
             double distance = entity.squaredDistanceTo(player);
-            if (distance <= 50 * 50) {
+            if (distance <= 20 * 20) {
                 range = true;
             }
             else {
