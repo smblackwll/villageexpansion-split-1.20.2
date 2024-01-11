@@ -14,4 +14,7 @@ public class ModModelLayers {
 
     public static final EntityModelLayer NOBLE_GUARD =
             new EntityModelLayer(new Identifier(VillageExpansion.MOD_ID, "nobleguard"), "main");
+
+    public static final EntityModelLayer NOBLE_BOSS =
+            new EntityModelLayer(new Identifier(VillageExpansion.MOD_ID, "nobleboss"), "main");
 }

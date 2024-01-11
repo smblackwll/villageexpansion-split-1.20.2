@@ -16,5 +16,8 @@ public class VillageExpansionClient implements ClientModInitializer {
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.NOBLE_GOLEM, NobleGolemModel::getTexturedModelData);
 		EntityRendererRegistry.register(ModEntities.NOBLE_GUARD, NobleGuardRenderer::new);
 		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.NOBLE_GUARD, NobleGuardModel::getTexturedModelData);
+
+		EntityRendererRegistry.register(ModEntities.NOBLE_BOSS, NobleBossRenderer::new);
+		EntityModelLayerRegistry.registerModelLayer(ModModelLayers.NOBLE_BOSS, NobleBossModel::getTexturedModelData);
 	}
 }
