@@ -5,6 +5,7 @@
 
   "entity.villageexpansion.genericvillager": "Villager",
   "entity.villageexpansion.nobleguard": "Corrupted Guard",
+  "entity.villageexpansion.noble_boss": "Corrupted Noble",
 
   "item.villageexpansion.noble_guard_spawn_egg": "Corrupted Guard Spawn Egg",
 
