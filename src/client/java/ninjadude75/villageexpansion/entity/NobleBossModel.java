@@ -6,6 +6,9 @@ import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.render.entity.model.SinglePartEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
+import net.minecraft.util.math.MathHelper;
+import ninjadude75.villageexpansion.entity.animation.ModAnimations;
+import ninjadude75.villageexpansion.entity.custom.GenericVillagerEntity;
 import ninjadude75.villageexpansion.entity.custom.NobleBossEntity;
 import ninjadude75.villageexpansion.entity.custom.NobleGuardEntity;
 
@@ -15,8 +18,12 @@ import ninjadude75.villageexpansion.entity.custom.NobleGuardEntity;
 public class NobleBossModel<T extends NobleBossEntity> extends SinglePartEntityModel<T> {
 	private final ModelPart genericvillager;
 
+	private final ModelPart head;
+
 	public NobleBossModel(ModelPart root) {
 		this.genericvillager = root.getChild("genericvillager");
+		this.head = genericvillager.getChild("torso").getChild("head");
+
 	}
 	public static TexturedModelData getTexturedModelData() {
 		ModelData modelData = new ModelData();
@@ -52,7 +59,31 @@ public class NobleBossModel<T extends NobleBossEntity> extends SinglePartEntityM
 
 
 	@Override
-	public void setAngles(NobleBossEntity entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {
+	public void setAngles(NobleBossEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.getPart().traverse().forEach(ModelPart::resetTransform);
+		//rotate head when looking around
+		this.setHeadAngles(netHeadYaw, headPitch);
 
+		//supposed to be the movement
+		//walking anim is now the only thing that works
+
+//		if (limbSwingAmount > 1.0000000000001f){
+//
+//		}
+//		else{
+		this.animateMovement(ModAnimations.NOBLE_GOLEM_WALK, limbSwing, limbSwingAmount, 1f, 1f);
+		this.updateAnimation(entity.idleAnimationState, ModAnimations.NOBLE_BOSS_IDLE, ageInTicks, 1f);
+		this.updateAnimation(entity.summonAnimationState, ModAnimations.NOBLE_BOSS_SUMMON, ageInTicks, 1f);
+
+		//}
+
+	}
+
+	private void setHeadAngles(float headYaw, float headPitch){
+		headYaw = MathHelper.clamp(headYaw, -30.F, 30.0F);
+		headPitch = MathHelper.clamp(headPitch, -25.0F, 45.0F);
+
+		this.head.yaw = headYaw * 0.017453292F;
+		this.head.pitch = headPitch * 0.017453292F;
 	}
 }

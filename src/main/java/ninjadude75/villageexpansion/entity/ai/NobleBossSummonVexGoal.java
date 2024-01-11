@@ -5,6 +5,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.VexEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import ninjadude75.villageexpansion.entity.custom.NobleBossEntity;
 
 public class NobleBossSummonVexGoal extends Goal {
@@ -16,14 +18,24 @@ public class NobleBossSummonVexGoal extends Goal {
     }
     @Override
     public boolean canStart() {
-        return true;
+        boolean range = false;
+        entity.setSummoning(true);
+        for (PlayerEntity player : entity.getWorld().getPlayers()){
+            double distance = entity.squaredDistanceTo(player);
+            if (distance <= 50 * 50) {
+                range = true;
+            }
+            else {
+                range = false;
+            }
+        }
+        return range;
     }
 
     @Override
     public void tick() {
         System.out.println(wait);
         if (wait <= 0){
-            entity.setSummoning(true);
             for (int i = 0; i < 2; i++){
                 VexEntity vex = EntityType.VEX.create(entity.getWorld());
                 if (vex != null){
@@ -44,4 +56,5 @@ public class NobleBossSummonVexGoal extends Goal {
             wait--;
         }
     }
+
 }

@@ -4,8 +4,7 @@ import net.minecraft.entity.AnimationState;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ExperienceOrbEntity;
-import net.minecraft.entity.ai.goal.ActiveTargetGoal;
-import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -89,7 +88,9 @@ public class NobleBossEntity extends PathAwareEntity {
         this.goalSelector.add(0, new SwimGoal(this));
         this.goalSelector.add(1, new ActiveTargetGoal<>(this, PlayerEntity.class, true));
         this.goalSelector.add(2, new NobleBossSummonGuardGoal(this));
-        this.goalSelector.add(2, new NobleBossSummonVexGoal(this));
+        this.goalSelector.add(3, new NobleBossSummonVexGoal(this));
+        this.goalSelector.add(4, new FleeEntityGoal<PlayerEntity>(this, PlayerEntity.class, 5, 0.2, 0.5));
+        this.goalSelector.add(5, new LookAtEntityGoal(this, PlayerEntity.class, 5f));
     }
 
 

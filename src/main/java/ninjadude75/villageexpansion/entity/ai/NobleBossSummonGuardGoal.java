@@ -3,6 +3,7 @@ package ninjadude75.villageexpansion.entity.ai;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.mob.VexEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import ninjadude75.villageexpansion.entity.ModEntities;
 import ninjadude75.villageexpansion.entity.custom.NobleBossEntity;
 import ninjadude75.villageexpansion.entity.custom.NobleGuardEntity;
@@ -16,7 +17,18 @@ public class NobleBossSummonGuardGoal extends Goal {
     }
     @Override
     public boolean canStart() {
-        return true;
+        boolean range = false;
+        entity.setSummoning(true);
+        for (PlayerEntity player : entity.getWorld().getPlayers()){
+            double distance = entity.squaredDistanceTo(player);
+            if (distance <= 50 * 50) {
+                range = true;
+            }
+            else {
+                range = false;
+            }
+        }
+        return range;
     }
 
     @Override
@@ -30,7 +42,8 @@ public class NobleBossSummonGuardGoal extends Goal {
                     entity.getWorld().spawnEntity(guard);
                 }
             }
-            wait = 300;
+            wait = 150;
+            entity.setSummoning(false);
 
         }
         else {
